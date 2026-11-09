@@ -15,6 +15,10 @@ export class SeedService implements OnApplicationBootstrap {
   constructor(private dataSource: DataSource) {}
 
   async onApplicationBootstrap() {
+    if (process.env.NODE_ENV === 'production') {
+      this.logger.log('Production mode: skipping seed to ensure instant cold-start.');
+      return;
+    }
     await this.runSeed();
   }
 

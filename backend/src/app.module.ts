@@ -54,6 +54,10 @@ import { AppController } from './app.controller';
                 database: config.get<string>('DB_NAME', 'rokad_store'),
               }),
           ssl: isSsl ? { rejectUnauthorized: false } : false,
+          extra: {
+            max: 2,
+            connectionTimeoutMillis: 5000,
+          },
           entities: [
             User,
             Wallet,
@@ -68,7 +72,7 @@ import { AppController } from './app.controller';
             StoreSettings,
             AuditLog,
           ],
-          synchronize: true, // auto create/sync tables in dev/preview
+          synchronize: false, // Tables already initialized
           logging: false,
         };
       },
