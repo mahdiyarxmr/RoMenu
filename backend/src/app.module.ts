@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
@@ -34,29 +34,43 @@ import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.DB_HOST || 'localhost',
-      port: Number(process.env.DB_PORT) || 5432,
-      username: process.env.DB_USER || 'rokad',
-      password: process.env.DB_PASS || 'rokad',
-      database: process.env.DB_NAME || 'rokad_store',
-      entities: [
-        User,
-        Wallet,
-        WalletTransaction,
-        WalletTopUp,
-        Product,
-        InventoryMovement,
-        Order,
-        OrderItem,
-        Payment,
-        PaymentSettings,
-        StoreSettings,
-        AuditLog,
-      ],
-      synchronize: true, // auto create/sync tables in dev
-      logging: false,
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => {
+        const dbUrl = config.get<string>('DATABASE_URL') || config.get<string>('POSTGRES_URL');
+        const isSsl = config.get<string>('DB_SSL') === 'true' || !!dbUrl;
+
+        return {
+          type: 'postgres' as const,
+          ...(dbUrl
+            ? { url: dbUrl }
+            : {
+                host: config.get<string>('DB_HOST', 'localhost'),
+                port: Number(config.get<string>('DB_PORT', '5432')),
+                username: config.get<string>('DB_USER', 'rokad'),
+                password: config.get<string>('DB_PASS', 'rokad'),
+                database: config.get<string>('DB_NAME', 'rokad_store'),
+              }),
+          ssl: isSsl ? { rejectUnauthorized: false } : false,
+          entities: [
+            User,
+            Wallet,
+            WalletTransaction,
+            WalletTopUp,
+            Product,
+            InventoryMovement,
+            Order,
+            OrderItem,
+            Payment,
+            PaymentSettings,
+            StoreSettings,
+            AuditLog,
+          ],
+          synchronize: true, // auto create/sync tables in dev/preview
+          logging: false,
+        };
+      },
     }),
     AuthModule,
     UsersModule,
