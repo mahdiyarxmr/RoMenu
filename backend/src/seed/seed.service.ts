@@ -6,7 +6,7 @@ import { Product } from '../products/product.entity';
 import { InventoryMovement } from '../products/inventory-movement.entity';
 import { PaymentSettings } from '../settings/payment-settings.entity';
 import { StoreSettings } from '../settings/store-settings.entity';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class SeedService implements OnApplicationBootstrap {

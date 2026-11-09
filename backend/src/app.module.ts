@@ -30,6 +30,7 @@ import { AdminModule } from './admin/admin.module';
 import { UploadsModule } from './uploads/uploads.module';
 import { SeedModule } from './seed/seed.module';
 import { AuthModule } from './auth/auth.module';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -84,6 +85,7 @@ import { AuthModule } from './auth/auth.module';
     UploadsModule,
     SeedModule,
   ],
+  controllers: [AppController],
   providers: [
     {
       provide: APP_GUARD,
