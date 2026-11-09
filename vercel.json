@@ -1,19 +1,46 @@
-
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "services": {
     "client": {
-      "root": "client",
-      "framework": "vite"
+      "root": "frontend",
+      "framework": "nextjs",
+      "bindings": [
+        {
+          "type": "service",
+          "service": "server",
+          "format": "url",
+          "env": "BACKEND_URL"
+        }
+      ]
     },
     "server": {
-      "root": "server",
-      "framework": "nestjs"
+      "root": "backend",
+      "framework": "nestjs",
+      "bindings": [
+        {
+          "type": "service",
+          "service": "client",
+          "format": "url",
+          "env": "FRONTEND_URL"
+        }
+      ]
     }
   },
   "rewrites": [
     {
+      "source": "/api/v1/(.*)",
+      "destination": {
+        "service": "server"
+      }
+    },
+    {
       "source": "/api/(.*)",
+      "destination": {
+        "service": "server"
+      }
+    },
+    {
+      "source": "/uploads/(.*)",
       "destination": {
         "service": "server"
       }

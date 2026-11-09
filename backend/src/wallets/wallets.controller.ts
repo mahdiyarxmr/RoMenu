@@ -84,7 +84,7 @@ export class WalletsController {
 
     const user = await this.dataSource.getRepository(User).findOne({ where: { id: userId } });
     const creds = paymentSettings?.credentialsEnc ? decryptCredentials(paymentSettings.credentialsEnc) : {};
-    const backendUrl = process.env.BACKEND_URL || 'http://localhost:3001';
+    const backendUrl = process.env.BACKEND_URL || process.env.FRONTEND_URL || 'http://localhost:3001';
     const callbackUrl = `${backendUrl}/api/v1/payments/callback/${activeProvider}?paymentId=${savedPayment.id}`;
 
     let redirectUrl = `/pay/sandbox?paymentId=${savedPayment.id}`;

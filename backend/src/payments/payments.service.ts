@@ -78,7 +78,7 @@ export class PaymentsService {
     const savedPayment = await this.paymentsRepo.save(payment);
 
     const provider = this.getProviderInstance(providerName);
-    const backendUrl = process.env.BACKEND_URL || 'http://localhost:3001';
+    const backendUrl = process.env.BACKEND_URL || process.env.FRONTEND_URL || 'http://localhost:3001';
     const callbackUrl = `${backendUrl}/api/v1/payments/callback/${providerName}?paymentId=${savedPayment.id}`;
 
     const paymentResult = await provider.createPayment({

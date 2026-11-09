@@ -413,6 +413,7 @@ export class AdminController {
   @Post('settings/payment/test-zarinpal')
   async testZarinpal() {
     try {
+      const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3002';
       const res = await fetch('https://sandbox.zarinpal.com/pg/v4/payment/request.json', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
@@ -420,7 +421,7 @@ export class AdminController {
           merchant_id: '00000000-0000-0000-0000-000000000000',
           amount: 10000,
           currency: 'IRT',
-          callback_url: 'http://localhost:3002/api/v1/payments/callback/zarinpal',
+          callback_url: `${frontendUrl}/api/v1/payments/callback/zarinpal`,
           description: 'تست اتصال درگاه زرین‌پال',
         }),
         signal: AbortSignal.timeout(6000),
