@@ -221,12 +221,8 @@ export async function POST(req: NextRequest, { params }: { params: { slug: strin
       }
       if (slug[1] === 'orders' && slug[2] === 'start') {
         if (!user) return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
-        const o = await orderService.getById(body.orderId, user.id);
-        return NextResponse.json({
-          redirectUrl: `${origin}/pay/sandbox?paymentId=${body.orderId}&amount=${o.total}`,
-          paymentId: body.orderId,
-          provider: 'zarinpal',
-        });
+        const startRes = await orderService.startOrderPayment(body.orderId, user.id, origin);
+        return NextResponse.json(startRes);
       }
       if (slug[1] === 'callback' && slug[2]) {
         const provider = slug[2];

@@ -90,6 +90,13 @@ export default function ProductDetailPage() {
       if (!res.paymentNeeded) {
         // Immediate completion
         router.push(`/pay/result?status=success&orderId=${res.order.id}&message=${encodeURIComponent('سفارش شما با موفقیت از محل کیف پول ثبت شد')}`);
+      } else if (res.paymentUrl) {
+        // Redirect to ZarinPal SandBox StartPay
+        if (res.paymentUrl.startsWith('/')) {
+          router.push(res.paymentUrl);
+        } else {
+          window.location.href = res.paymentUrl;
+        }
       } else {
         // Start gateway payment
         router.push(`/orders/${res.order.id}`);

@@ -63,6 +63,13 @@ export default function CartPage() {
             'سفارش شما با موفقیت تسویه و ثبت شد',
           )}`,
         );
+      } else if (res.paymentUrl) {
+        // Direct redirect to ZarinPal SandBox StartPay
+        if (res.paymentUrl.startsWith('/')) {
+          router.push(res.paymentUrl);
+        } else {
+          window.location.href = res.paymentUrl;
+        }
       } else {
         // Gateway payment required
         const payRes = await paymentsApi.startOrderPayment(res.order.id);

@@ -537,6 +537,57 @@ export const orderService = {
     await query(`UPDATE orders SET status = 'CANCELLED', "updatedAt" = NOW() WHERE id = $1`, [id]);
     return { ...order, status: 'CANCELLED' };
   },
+
+  async startOrderPayment(orderId: string, userId: string, origin: string) {
+    const rows = await query(`SELECT * FROM orders WHERE id = $1 AND "userId" = $2`, [orderId, userId]);
+    if (!rows.length) throw new Error('سفارش یافت نشد');
+    const order = rows[0];
+    const amount = toNum(order.gatewayAmount) || toNum(order.total);
+
+    let payRows = await query(`SELECT * FROM payments WHERE "orderId" = $1 AND status = 'PENDING'`, [orderId]);
+    let paymentId: string;
+    if (payRows.length) {
+      paymentId = payRows[0].id;
+    } else {
+      paymentId = crypto.randomUUID();
+      await query(
+        `INSERT INTO payments (id, "orderId", "userId", provider, mode, amount, status, "createdAt", "updatedAt")
+         VALUES ($1, $2, $3, 'zarinpal', 'SANDBOX', $4, 'PENDING', NOW(), NOW())`,
+        [paymentId, orderId, userId, amount]
+      );
+    }
+
+    const callbackUrl = `${origin}/api/v1/payments/callback/zarinpal?paymentId=${paymentId}`;
+    let redirectUrl = `${origin}/pay/sandbox?paymentId=${paymentId}&amount=${amount}`;
+
+    try {
+      const zpRes = await fetch('https://sandbox.zarinpal.com/pg/v4/payment/request.json', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          merchant_id: '00000000-0000-0000-0000-000000000000',
+          amount,
+          currency: 'IRT',
+          description: `پرداخت سفارش #${orderId.slice(0, 6)} بوفه رُکاد`,
+          callback_url: callbackUrl,
+        }),
+      });
+      const zpData = await zpRes.json();
+      if (zpData.data && (zpData.data.code === 100 || zpData.data.code === 101)) {
+        const authority = zpData.data.authority;
+        await query(`UPDATE payments SET "authorityOrToken" = $1 WHERE id = $2`, [authority, paymentId]);
+        redirectUrl = `https://sandbox.zarinpal.com/pg/StartPay/${authority}`;
+      }
+    } catch (e) {
+      console.warn('Zarinpal start payment error:', e);
+    }
+
+    return {
+      redirectUrl,
+      paymentId,
+      provider: 'zarinpal',
+    };
+  },
 };
 
 export const paymentService = {
