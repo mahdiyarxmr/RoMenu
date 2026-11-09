@@ -37,7 +37,7 @@ export default function RegisterPage() {
     <MobileFrame>
       <div className="flex-1 flex flex-col justify-center p-6 space-y-6">
         <div className="text-center space-y-2 flex flex-col items-center">
-          <RokadLogo size="lg" />
+          <RokadLogo size="xl" variant="vertical" showBadge={true} />
           <h1 className="text-xl font-black text-[#1E293B] dark:text-white pt-2">ثبت‌نام در بوفه رُکاد</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400">
             ساخت حساب کاربری سریع برای خرید از بوفه مدرسه

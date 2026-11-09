@@ -118,7 +118,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           >
             {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
-          <span className="text-sm font-black text-[#202A5A] dark:text-white">پنل مدیریت بوفه</span>
+          <div className="flex items-center gap-2">
+            <RokadLogo size="sm" variant="icon" />
+            <span className="text-sm font-black text-[#202A5A] dark:text-white">مدیریت بوفه</span>
+          </div>
         </div>
         <Link href="/" className="text-xs font-bold text-[#59BBAF]">
           ویترین بوفه

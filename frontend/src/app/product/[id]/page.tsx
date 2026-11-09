@@ -105,7 +105,7 @@ export default function ProductDetailPage() {
     <MobileFrame>
       <Header />
 
-      <main className="flex-1 p-4 pb-24 space-y-4">
+      <main className="flex-1 p-4 pb-28 space-y-4">
         {/* Back Link */}
         <div className="flex items-center justify-between">
           <Link

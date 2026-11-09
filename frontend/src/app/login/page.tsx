@@ -42,7 +42,7 @@ export default function LoginPage() {
       <div className="flex-1 flex flex-col justify-center p-6 space-y-6">
         {/* Logo & Header */}
         <div className="text-center space-y-2 flex flex-col items-center">
-          <RokadLogo size="lg" />
+          <RokadLogo size="xl" variant="vertical" showBadge={true} />
           <h1 className="text-xl font-black text-[#1E293B] dark:text-white pt-2">ورود به بوفه رُکاد</h1>
           <p className="text-xs text-slate-500 dark:text-slate-400">
             سفارش سریع خوراکی و نوشیدنی بدون معطلی در صف بوفه

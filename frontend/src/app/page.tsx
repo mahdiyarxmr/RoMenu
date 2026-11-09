@@ -10,6 +10,8 @@ import {
   Wallet as WalletIcon,
   ChevronLeft,
   Flame,
+  ArrowLeft,
+  ShoppingBag,
 } from 'lucide-react';
 import { MobileFrame } from '@/components/MobileFrame';
 import { Header } from '@/components/Header';
@@ -35,7 +37,7 @@ const CATEGORIES = [
 
 export default function HomePage() {
   const { user } = useAuth();
-  const { addItem } = useCart();
+  const { addItem, itemCount, totalAmount } = useCart();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -76,7 +78,7 @@ export default function HomePage() {
     <MobileFrame>
       <Header />
 
-      <main className="flex-1 p-4 pb-20 space-y-4">
+      <main className="flex-1 p-4 pb-36 space-y-4">
         {/* 1. Wallet Digital Pass Card */}
         <WalletCard />
 
@@ -278,6 +280,33 @@ export default function HomePage() {
           )}
         </div>
       </main>
+
+      {/* Floating Cart Quick-Bar (Above Fixed Bottom Nav) */}
+      {itemCount > 0 && (
+        <div className="fixed sm:absolute bottom-[74px] left-0 right-0 z-40 px-3 w-full animate-in fade-in slide-in-from-bottom duration-200">
+          <Link
+            href="/cart"
+            className="flex items-center justify-between p-3 bg-[#202A5A] text-white rounded-2xl border-2 border-[#1E293B] shadow-[3px_3px_0px_#59BBAF] hover:bg-[#1A2248] transition-all group select-none"
+          >
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-[#59BBAF] text-[#1F413D] flex items-center justify-center font-black text-xs border border-[#202A5A]">
+                {itemCount}
+              </div>
+              <div className="text-right">
+                <div className="text-[11px] font-bold text-slate-300">سبد خرید شما</div>
+                <div className="text-sm font-black text-[#59BBAF]">
+                  {formatPrice(totalAmount)}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-1.5 text-xs font-black bg-[#59BBAF] text-[#1F413D] px-3 py-1.5 rounded-xl border border-[#202A5A] shadow-xs group-hover:-translate-x-1 transition-transform">
+              <span>تکمیل خرید</span>
+              <ArrowLeft size={16} />
+            </div>
+          </Link>
+        </div>
+      )}
 
       <Navbar />
     </MobileFrame>
