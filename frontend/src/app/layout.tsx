@@ -2,6 +2,9 @@ import './globals.css';
 import { Providers } from './providers';
 import type { Metadata } from 'next';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title: 'بوفه رُکاد | RoMenu',
   description: 'فروشگاه و بوفه هوشمند اکوسیستم رُکاد — سریع، خوشمزه و بدون معطلی',
