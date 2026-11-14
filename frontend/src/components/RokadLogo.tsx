@@ -5,7 +5,7 @@ import React from 'react';
 interface RokadLogoProps {
   className?: string;
   size?: 'sm' | 'md' | 'lg' | 'xl';
-  variant?: 'horizontal' | 'vertical' | 'icon';
+  variant?: 'horizontal' | 'vertical' | 'icon' | 'text';
   showBadge?: boolean;
 }
 
@@ -31,8 +31,8 @@ export const RokadLogo: React.FC<RokadLogoProps> = ({
 
   const bofeTextSizes = {
     sm: 'text-xs',
-    md: 'text-[14px]',
-    lg: 'text-[17px]',
+    md: 'text-[15px]',
+    lg: 'text-[18px]',
     xl: 'text-[22px]',
   };
 
@@ -70,13 +70,31 @@ export const RokadLogo: React.FC<RokadLogoProps> = ({
     </svg>
   );
 
-  // Variant: Icon Only (Sign)
+  // Variant: Icon Only (Sign Emblem)
   if (variant === 'icon') {
     return (
       <div
         className={`${iconDimensions[size]} relative flex items-center justify-center bg-gradient-to-br from-[#EEF8F7] to-[#D7EFEA] dark:bg-gradient-to-br dark:from-[#172433] dark:via-[#101A26] dark:to-[#0A121A] text-[#1F413D] dark:text-[#59BBAF] border border-[#59BBAF]/40 shadow-xs dark:shadow-[0_0_12px_rgba(89,187,175,0.22)] select-none transition-transform hover:scale-105 active:scale-95 ${className}`}
       >
         {RokadSignSvg}
+      </div>
+    );
+  }
+
+  // Variant: Text Only ("بوفه رُکاد" Typographic Wordmark)
+  if (variant === 'text') {
+    return (
+      <div
+        className={`inline-flex items-center gap-1.5 text-[#202A5A] dark:text-white leading-none select-none ${className}`}
+      >
+        <span
+          className={`font-black text-slate-800 dark:text-white leading-none tracking-tight select-none ${bofeTextSizes[size]}`}
+        >
+          بوفه
+        </span>
+        <div className="text-[#202A5A] dark:text-[#59BBAF] hover:text-[#59BBAF] transition-colors leading-none -translate-y-[2px]">
+          {RokadTypoSvg}
+        </div>
       </div>
     );
   }
@@ -114,7 +132,7 @@ export const RokadLogo: React.FC<RokadLogoProps> = ({
     );
   }
 
-  // Variant: Horizontal (Default for Header & Navbar)
+  // Variant: Horizontal (Default)
   return (
     <div className={`inline-flex items-center gap-2 select-none ${className}`}>
       {/* Modern Cyber-Glass Sign Emblem */}
