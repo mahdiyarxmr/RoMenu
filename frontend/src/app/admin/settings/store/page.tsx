@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Palette, Check, Sparkles, Store, Clock } from 'lucide-react';
+import { Palette, Check, Sparkles, Store, Clock, Plus, Star } from 'lucide-react';
 import { adminApi } from '@/services/api';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
@@ -18,7 +18,7 @@ const THEMES: {
   {
     id: 'neo-brutal',
     title: 'نئوبروتالیسم رُکاد (Neo-Brutalism)',
-    badge: 'تم رسمی پیش‌فرض ⭐',
+    badge: 'تم رسمی پیش‌فرض',
     description: 'خطوط جوهری باکنتراست، سایه‌های سخت فیزیکی آفست، فیزیک دکمه‌های فشاری مکانیکی و دارک‌مود عمیق.',
     previewBg: 'bg-[#EEF8F7]',
     accentColor: '#59BBAF',
@@ -162,10 +162,11 @@ export default function AdminStoreSettingsPage() {
                     <span className="text-xs font-bold text-slate-800 dark:text-slate-200">پیش‌نمایش دکمه بوفه</span>
                     <button
                       type="button"
-                      className="px-3 py-1 bg-white text-xs font-black rounded-lg border border-black/20 shadow-sm"
+                      className="px-3 py-1 bg-white text-xs font-black rounded-lg border border-black/20 shadow-sm inline-flex items-center gap-1"
                       style={{ color: th.accentColor }}
                     >
-                      خرید ➕
+                      <span>خرید</span>
+                      <Plus size={12} strokeWidth={3} />
                     </button>
                   </div>
 

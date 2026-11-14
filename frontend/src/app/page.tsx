@@ -6,19 +6,17 @@ import {
   Search,
   Plus,
   Check,
-  Sparkles,
-  Wallet as WalletIcon,
-  ChevronLeft,
   Flame,
   ArrowLeft,
-  ShoppingBag,
+  LayoutGrid,
+  CupSoda,
+  Sandwich,
+  Popcorn,
+  Cookie,
 } from 'lucide-react';
 import { MobileFrame } from '@/components/MobileFrame';
 import { Header } from '@/components/Header';
 import { Navbar } from '@/components/Navbar';
-import { Card } from '@/components/Card';
-import { Badge } from '@/components/Badge';
-import { Button } from '@/components/Button';
 import { EmptyState } from '@/components/EmptyState';
 import { WalletCard } from '@/components/WalletCard';
 import { useAuth } from '@/context/AuthContext';
@@ -28,11 +26,11 @@ import { Product } from '@/types';
 import { formatPrice } from '@/utils/formatters';
 
 const CATEGORIES = [
-  { id: 'all', label: 'همه', icon: '🍽️' },
-  { id: 'نوشیدنی', label: 'نوشیدنی', icon: '🥤' },
-  { id: 'ساندویچ', label: 'ساندویچ', icon: '🥪' },
-  { id: 'تنقلات', label: 'تنقلات', icon: '🍿' },
-  { id: 'کیک و شیرینی', label: 'شیرینی', icon: '🍪' },
+  { id: 'all', label: 'همه', icon: LayoutGrid },
+  { id: 'نوشیدنی', label: 'نوشیدنی', icon: CupSoda },
+  { id: 'ساندویچ', label: 'ساندویچ', icon: Sandwich },
+  { id: 'تنقلات', label: 'تنقلات', icon: Popcorn },
+  { id: 'کیک و شیرینی', label: 'شیرینی', icon: Cookie },
 ];
 
 export default function HomePage() {
@@ -98,10 +96,11 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* 3. Category Filter Chips */}
+        {/* 3. Category Filter Chips (Consistent Lucide Icons) */}
         <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar select-none">
           {CATEGORIES.map((cat) => {
             const isActive = selectedCategory === cat.id;
+            const Icon = cat.icon;
             return (
               <button
                 key={cat.id}
@@ -109,10 +108,10 @@ export default function HomePage() {
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all border-[1.5px] ${
                   isActive
                     ? 'bg-[#202A5A] text-white border-[#0B0F1F] shadow-hard-xs dark:bg-[#59BBAF] dark:text-[#1F413D] dark:border-[#59BBAF]'
-                    : 'bg-white dark:bg-[#151C28] text-slate-700 dark:text-slate-300 border-slate-300 dark:border-[#242F42] hover:bg-slate-50'
+                    : 'bg-white dark:bg-[#151C28] text-slate-700 dark:text-slate-300 border-slate-300 dark:border-[#242F42] hover:bg-slate-50 dark:hover:bg-[#1C2638]'
                 }`}
               >
-                <span>{cat.icon}</span>
+                <Icon size={14} className={isActive ? 'text-inherit' : 'text-[#59BBAF]'} />
                 <span>{cat.label}</span>
               </button>
             );
@@ -281,15 +280,15 @@ export default function HomePage() {
         </div>
       </main>
 
-      {/* Floating Cart Quick-Bar (Above Fixed Bottom Nav) */}
+      {/* Floating Cart Quick-Bar with Generous Clearance Above Fixed Bottom Nav */}
       {itemCount > 0 && (
-        <div className="fixed sm:absolute bottom-[74px] left-0 right-0 z-40 px-3 w-full animate-in fade-in slide-in-from-bottom duration-200">
+        <div className="fixed sm:absolute bottom-[88px] left-0 right-0 z-40 px-3 w-full max-w-[430px] mx-auto animate-in fade-in slide-in-from-bottom duration-200 pointer-events-none">
           <Link
             href="/cart"
-            className="flex items-center justify-between p-3 bg-[#202A5A] text-white rounded-2xl border-2 border-[#1E293B] shadow-[3px_3px_0px_#59BBAF] hover:bg-[#1A2248] transition-all group select-none"
+            className="pointer-events-auto flex items-center justify-between p-3.5 bg-[#141D2B]/95 dark:bg-[#141D2B]/95 backdrop-blur-xl text-white rounded-2xl border-[1.5px] border-[#59BBAF]/50 shadow-[0_10px_25px_rgba(0,0,0,0.5)] hover:border-[#59BBAF] transition-all group select-none"
           >
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-[#59BBAF] text-[#1F413D] flex items-center justify-center font-black text-xs border border-[#202A5A]">
+              <div className="w-8 h-8 rounded-xl bg-[#59BBAF] text-[#0F1722] flex items-center justify-center font-black text-xs shadow-sm">
                 {itemCount}
               </div>
               <div className="text-right">
@@ -300,9 +299,9 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="flex items-center gap-1.5 text-xs font-black bg-[#59BBAF] text-[#1F413D] px-3 py-1.5 rounded-xl border border-[#202A5A] shadow-xs group-hover:-translate-x-1 transition-transform">
+            <div className="flex items-center gap-1.5 text-xs font-black bg-[#59BBAF] text-[#0F1722] px-3.5 py-1.5 rounded-xl shadow-xs group-hover:-translate-x-1 transition-transform">
               <span>تکمیل خرید</span>
-              <ArrowLeft size={16} />
+              <ArrowLeft size={15} />
             </div>
           </Link>
         </div>

@@ -16,10 +16,10 @@ export const RokadLogo: React.FC<RokadLogoProps> = ({
   showBadge = true,
 }) => {
   const iconDimensions = {
-    sm: 'w-7 h-7',
-    md: 'w-9 h-9',
-    lg: 'w-12 h-12',
-    xl: 'w-16 h-16',
+    sm: 'w-7 h-7 p-1.5 rounded-lg',
+    md: 'w-9 h-9 p-1.5 rounded-xl',
+    lg: 'w-12 h-12 p-2 rounded-2xl',
+    xl: 'w-16 h-16 p-3 rounded-2xl',
   };
 
   const typoDimensions = {
@@ -27,6 +27,13 @@ export const RokadLogo: React.FC<RokadLogoProps> = ({
     md: 'h-5 w-auto',
     lg: 'h-7 w-auto',
     xl: 'h-10 w-auto',
+  };
+
+  const bofeTextSizes = {
+    sm: 'text-[11px] pb-[1px]',
+    md: 'text-[12px] pb-[2px]',
+    lg: 'text-[15px] pb-[3px]',
+    xl: 'text-[18px] pb-[4px]',
   };
 
   const badgeTextSizes = {
@@ -40,7 +47,7 @@ export const RokadLogo: React.FC<RokadLogoProps> = ({
   const RokadSignSvg = (
     <svg
       viewBox="0 0 1383 1810"
-      className="w-full h-full"
+      className="w-full h-full drop-shadow-[0_0_6px_rgba(89,187,175,0.4)]"
       fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -67,7 +74,7 @@ export const RokadLogo: React.FC<RokadLogoProps> = ({
   if (variant === 'icon') {
     return (
       <div
-        className={`${iconDimensions[size]} relative flex items-center justify-center rounded-xl bg-gradient-to-br from-[#59BBAF] to-[#202A5A] text-white p-1.5 shadow-[2px_2px_0px_#202A5A] dark:shadow-[2px_2px_0px_#59BBAF] border-[1.5px] border-[#202A5A] dark:border-[#59BBAF] select-none ${className}`}
+        className={`${iconDimensions[size]} relative flex items-center justify-center bg-gradient-to-br from-[#EEF8F7] to-[#D7EFEA] dark:bg-gradient-to-br dark:from-[#172433] dark:via-[#101A26] dark:to-[#0A121A] text-[#1F413D] dark:text-[#59BBAF] border border-[#59BBAF]/40 shadow-xs dark:shadow-[0_0_12px_rgba(89,187,175,0.22)] select-none transition-transform hover:scale-105 active:scale-95 ${className}`}
       >
         {RokadSignSvg}
       </div>
@@ -78,21 +85,26 @@ export const RokadLogo: React.FC<RokadLogoProps> = ({
   if (variant === 'vertical') {
     return (
       <div className={`flex flex-col items-center gap-3 select-none ${className}`}>
-        {/* Emblem */}
+        {/* Modern Emblem */}
         <div
-          className={`${iconDimensions[size]} relative flex items-center justify-center rounded-2xl bg-gradient-to-br from-[#59BBAF] to-[#1F413D] text-white p-2.5 shadow-[3px_3px_0px_#202A5A] dark:shadow-[3px_3px_0px_#59BBAF] border-2 border-[#202A5A] dark:border-[#59BBAF]`}
+          className={`${iconDimensions[size]} relative flex items-center justify-center bg-gradient-to-br from-[#EEF8F7] to-[#D7EFEA] dark:bg-gradient-to-br dark:from-[#1A2838] dark:via-[#111C28] dark:to-[#0B131D] text-[#1F413D] dark:text-[#59BBAF] border border-[#59BBAF]/50 shadow-sm dark:shadow-[0_0_20px_rgba(89,187,175,0.28)]`}
         >
           {RokadSignSvg}
         </div>
 
-        {/* Typo */}
-        <div className="flex flex-col items-center gap-1 text-[#202A5A] dark:text-white">
-          <div className="text-[#202A5A] dark:text-white transition-colors">
-            {RokadTypoSvg}
+        {/* Typo + Badge */}
+        <div className="flex flex-col items-center gap-1.5 text-[#202A5A] dark:text-white">
+          <div className="flex items-end gap-1.5 text-[#202A5A] dark:text-white leading-none">
+            <span className={`font-black text-slate-400 dark:text-slate-400 leading-none ${bofeTextSizes[size]}`}>
+              بوفه
+            </span>
+            <div className="text-[#202A5A] dark:text-[#59BBAF] transition-colors leading-none">
+              {RokadTypoSvg}
+            </div>
           </div>
           {showBadge && (
             <span
-              className={`rounded-full font-black tracking-wide border border-[#202A5A] dark:border-[#59BBAF] bg-[#EEF8F7] dark:bg-[#151C28] text-[#1F413D] dark:text-[#59BBAF] shadow-xs ${badgeTextSizes[size]}`}
+              className={`rounded-full font-black tracking-wide border border-[#59BBAF]/40 bg-[#EEF8F7] dark:bg-[#151C28] text-[#1F413D] dark:text-[#59BBAF] shadow-xs ${badgeTextSizes[size]}`}
             >
               بوفه هوشمند رُکاد
             </span>
@@ -104,24 +116,28 @@ export const RokadLogo: React.FC<RokadLogoProps> = ({
 
   // Variant: Horizontal (Default for Header & Navbar)
   return (
-    <div className={`inline-flex items-center gap-2.5 select-none ${className}`}>
-      {/* Official Sign Emblem in Neo-Brutal Container */}
+    <div className={`inline-flex items-center gap-2 select-none ${className}`}>
+      {/* Modern Cyber-Glass Sign Emblem */}
       <div
-        className={`${iconDimensions[size]} relative flex items-center justify-center rounded-xl bg-gradient-to-br from-[#59BBAF] to-[#1F413D] text-white p-1.5 shadow-[2px_2px_0px_#202A5A] dark:shadow-[2px_2px_0px_#59BBAF] border-[1.5px] border-[#202A5A] dark:border-[#59BBAF] flex-shrink-0 transition-transform hover:scale-105 active:scale-95`}
+        className={`${iconDimensions[size]} relative flex items-center justify-center bg-gradient-to-br from-[#EEF8F7] to-[#D7EFEA] dark:bg-gradient-to-br dark:from-[#172433] dark:via-[#101A26] dark:to-[#0A121A] text-[#1F413D] dark:text-[#59BBAF] border border-[#59BBAF]/40 shadow-xs dark:shadow-[0_0_12px_rgba(89,187,175,0.22)] flex-shrink-0 transition-all hover:scale-105 hover:border-[#59BBAF] hover:dark:shadow-[0_0_16px_rgba(89,187,175,0.35)] active:scale-95`}
       >
         {RokadSignSvg}
       </div>
 
-      {/* Official Typographic Wordmark & Buffet Badge */}
-      <div className="flex flex-col text-right">
-        <div className="flex items-center gap-1.5 text-[#202A5A] dark:text-white">
-          <span className="text-xs font-black text-slate-500 dark:text-slate-400">بوفه</span>
-          <div className="text-[#202A5A] dark:text-[#59BBAF] hover:text-[#59BBAF] transition-colors">
+      {/* Baseline-Aligned "بوفه رُکاد" Typographic Lockup */}
+      <div className="flex flex-col text-right justify-center">
+        <div className="flex items-end gap-1.5 text-[#202A5A] dark:text-white leading-none">
+          <span
+            className={`font-black text-slate-400 dark:text-slate-400 leading-none tracking-tight select-none ${bofeTextSizes[size]}`}
+          >
+            بوفه
+          </span>
+          <div className="text-[#202A5A] dark:text-[#59BBAF] hover:text-[#59BBAF] transition-colors leading-none">
             {RokadTypoSvg}
           </div>
         </div>
         {showBadge && (
-          <span className="text-[9px] font-bold text-slate-400 dark:text-slate-500 tracking-wider">
+          <span className="text-[9px] font-bold text-slate-400 dark:text-slate-500 tracking-wider mt-0.5">
             ROKAD BUFFET PASS
           </span>
         )}

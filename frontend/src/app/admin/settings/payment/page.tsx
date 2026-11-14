@@ -230,7 +230,10 @@ export default function AdminPaymentSettingsPage() {
                   className="text-[11px] font-bold text-[#59BBAF] hover:underline flex items-center gap-1"
                 >
                   <RefreshCw size={12} className={isTestingZarinpal ? 'animate-spin' : ''} />
-                  <span>تست اتصال 🧪</span>
+                  <span className="flex items-center gap-1">
+                    <span>تست اتصال</span>
+                    <FlaskConical size={12} />
+                  </span>
                 </button>
                 <Badge variant={zarinpalSandbox ? 'warning' : 'success'} size="sm">
                   {zarinpalSandbox ? 'سندباکس' : 'لایو'}

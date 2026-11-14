@@ -28,8 +28,9 @@ export const WalletCard: React.FC = () => {
                 کارت بوفه دیجیتال رُکاد
               </span>
             </div>
-            <span className="text-[10px] font-bold bg-[#59BBAF]/20 text-[#59BBAF] border border-[#59BBAF]/30 px-2 py-0.5 rounded-full">
-              تحویل ۱-کلیکی ⚡
+            <span className="inline-flex items-center gap-1 text-[10px] font-bold bg-[#59BBAF]/20 text-[#59BBAF] border border-[#59BBAF]/30 px-2 py-0.5 rounded-full">
+              <span>تحویل ۱-کلیکی</span>
+              <Zap size={11} className="fill-[#59BBAF] text-[#59BBAF]" />
             </span>
           </div>
 
