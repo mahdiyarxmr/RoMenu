@@ -16,7 +16,7 @@ export const RokadLogo: React.FC<RokadLogoProps> = ({
   showBadge = true,
 }) => {
   const iconDimensions = {
-    sm: 'w-7 h-7 p-1.5 rounded-lg',
+    sm: 'w-7 h-7 p-1 rounded-lg',
     md: 'w-9 h-9 p-1.5 rounded-xl',
     lg: 'w-12 h-12 p-2 rounded-2xl',
     xl: 'w-16 h-16 p-3 rounded-2xl',
@@ -30,10 +30,10 @@ export const RokadLogo: React.FC<RokadLogoProps> = ({
   };
 
   const bofeTextSizes = {
-    sm: 'text-[11px] pb-[1px]',
-    md: 'text-[12px] pb-[2px]',
-    lg: 'text-[15px] pb-[3px]',
-    xl: 'text-[18px] pb-[4px]',
+    sm: 'text-xs',
+    md: 'text-[14px]',
+    lg: 'text-[17px]',
+    xl: 'text-[22px]',
   };
 
   const badgeTextSizes = {
@@ -59,7 +59,7 @@ export const RokadLogo: React.FC<RokadLogoProps> = ({
   const RokadTypoSvg = (
     <svg
       viewBox="540 1560 840 260"
-      className={typoDimensions[size]}
+      className={`${typoDimensions[size]} overflow-visible`}
       fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -94,11 +94,11 @@ export const RokadLogo: React.FC<RokadLogoProps> = ({
 
         {/* Typo + Badge */}
         <div className="flex flex-col items-center gap-1.5 text-[#202A5A] dark:text-white">
-          <div className="flex items-end gap-1.5 text-[#202A5A] dark:text-white leading-none">
-            <span className={`font-black text-slate-400 dark:text-slate-400 leading-none ${bofeTextSizes[size]}`}>
+          <div className="flex items-center gap-1.5 text-[#202A5A] dark:text-white leading-none">
+            <span className={`font-black text-slate-800 dark:text-white leading-none ${bofeTextSizes[size]}`}>
               بوفه
             </span>
-            <div className="text-[#202A5A] dark:text-[#59BBAF] transition-colors leading-none">
+            <div className="text-[#202A5A] dark:text-[#59BBAF] transition-colors leading-none -translate-y-[2px]">
               {RokadTypoSvg}
             </div>
           </div>
@@ -124,15 +124,15 @@ export const RokadLogo: React.FC<RokadLogoProps> = ({
         {RokadSignSvg}
       </div>
 
-      {/* Baseline-Aligned "بوفه رُکاد" Typographic Lockup */}
+      {/* Perfectly Leveled & Aligned "بوفه رُکاد" Typographic Lockup */}
       <div className="flex flex-col text-right justify-center">
-        <div className="flex items-end gap-1.5 text-[#202A5A] dark:text-white leading-none">
+        <div className="flex items-center gap-1.5 text-[#202A5A] dark:text-white leading-none">
           <span
-            className={`font-black text-slate-400 dark:text-slate-400 leading-none tracking-tight select-none ${bofeTextSizes[size]}`}
+            className={`font-black text-slate-800 dark:text-white leading-none tracking-tight select-none ${bofeTextSizes[size]}`}
           >
             بوفه
           </span>
-          <div className="text-[#202A5A] dark:text-[#59BBAF] hover:text-[#59BBAF] transition-colors leading-none">
+          <div className="text-[#202A5A] dark:text-[#59BBAF] hover:text-[#59BBAF] transition-colors leading-none -translate-y-[2px]">
             {RokadTypoSvg}
           </div>
         </div>
